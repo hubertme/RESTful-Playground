@@ -17,4 +17,15 @@ class employeeView(APIView):
         return Response(viewSerializer.data)
 
     def post(self, request):
-        pass
+        viewSerializer = serializer(data=request.data)
+        if viewSerializer.is_valid():
+            employee_id = viewSerializer.data.get('employee_id')
+            first_name = viewSerializer.data.get('first_name')
+            last_name = viewSerializer.data.get('last_name')
+            date_created = viewSerializer.data.get('date_created')
+            return Response({"employee_id": employee_id,
+                             "first_name": first_name,
+                             "last_name": last_name,
+                             "date_created": date_created})
+        else:
+            return Response(viewSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
