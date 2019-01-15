@@ -19,6 +19,7 @@ class employeeView(APIView):
     def post(self, request):
         viewSerializer = serializer(data=request.data)
         if viewSerializer.is_valid():
+            viewSerializer.save()
             employee_id = viewSerializer.data.get('employee_id')
             first_name = viewSerializer.data.get('first_name')
             last_name = viewSerializer.data.get('last_name')
