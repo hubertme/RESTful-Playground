@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from . models import Employee as employee
-from . serializers import EmployeeSerializer
+from . models import Employee as employee, News as news
+from . serializers import EmployeeSerializer, NewsSerializer
 
 # Create your views here.
 class employeeView(APIView):
@@ -30,3 +30,13 @@ class employeeView(APIView):
                              "date_created": date_created})
         else:
             return Response(viewSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        pass
+
+class newsView(APIView):
+
+    def get(self, request):
+        newsInView = news.objects.all()
+        viewSerializer = NewsSerializer(newsInView, many=True)
+        return Response(viewSerializer.data)

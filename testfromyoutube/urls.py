@@ -21,4 +21,5 @@ from employees import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('employee/', views.employeeView.as_view()),
+    path('news/', views.newsView.as_view()),
 ]
