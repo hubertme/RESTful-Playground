@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from . models import Employee as employee, News as news
 from . serializers import EmployeeSerializer, NewsSerializer
+from rest_framework.decorators import api_view
 
 # Create your views here.
 class employeeView(APIView):
@@ -39,6 +40,13 @@ class newsView(APIView):
 
     def get(self, request):
         newsInView = news.objects.all()
+        viewSerializer = NewsSerializer(newsInView, many=True)
+        return Response(viewSerializer.data)
+
+    @api_view(['GET', 'POST', ])
+    def displaySpecificNews(self, employee_id_parsed):
+        newsInView = news.objects.filter(employee_id=employee_id_parsed)
+        # newsInView = news.objects.all()
         viewSerializer = NewsSerializer(newsInView, many=True)
         return Response(viewSerializer.data)
 
