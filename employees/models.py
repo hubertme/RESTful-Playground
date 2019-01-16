@@ -13,6 +13,7 @@ class Employee(models.Model):
 class News(models.Model):
     news_title = models.CharField(max_length=255)
     news_body = models.CharField(max_length=4095)
+    news_image = models.FileField(upload_to='images/', default='')
     date_created = models.DateTimeField(auto_now_add=True)
     employee_id = models.PositiveIntegerField(null=False)
 
