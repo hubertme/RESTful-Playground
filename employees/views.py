@@ -41,3 +41,19 @@ class newsView(APIView):
         newsInView = news.objects.all()
         viewSerializer = NewsSerializer(newsInView, many=True)
         return Response(viewSerializer.data)
+
+    def post(self, request):
+        viewSerializer = NewsSerializer(data=request.data)
+        if viewSerializer.is_valid():
+            viewSerializer.save()
+
+            news_title = viewSerializer.data.get('news_title')
+            employee_id = viewSerializer.data.get('employee_id')
+            date_created = viewSerializer.data.get('date_created')
+            return Response({
+                "news_title": news_title,
+                "employee_id": employee_id,
+                "date_created": date_created,
+            })
+        else:
+            return Response(viewSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
