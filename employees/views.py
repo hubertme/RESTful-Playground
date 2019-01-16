@@ -6,18 +6,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . models import Employee as employee
-from . serializers import serializer
+from . serializers import EmployeeSerializer
 
 # Create your views here.
 class employeeView(APIView):
 
     def get(self, request):
         employees = employee.objects.all()
-        viewSerializer = serializer(employees, many=True)
+        viewSerializer = EmployeeSerializer(employees, many=True)
         return Response(viewSerializer.data)
 
     def post(self, request):
-        viewSerializer = serializer(data=request.data)
+        viewSerializer = EmployeeSerializer(data=request.data)
         if viewSerializer.is_valid():
             viewSerializer.save()
             employee_id = viewSerializer.data.get('employee_id')
