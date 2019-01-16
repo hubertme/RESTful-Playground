@@ -14,7 +14,7 @@ class News(models.Model):
     news_title = models.CharField(max_length=255)
     news_body = models.CharField(max_length=4095)
     date_created = models.DateTimeField(auto_now_add=True)
-    employee_id = models.PositiveIntegerField(default=-1)
+    employee_id = models.PositiveIntegerField(null=False)
 
     def __str__(self):
-        return 'Title: {}, body: {}'.format(self.news_title, self.news_body)
+        return '{}; {}'.format(self.news_title, self.news_body)
